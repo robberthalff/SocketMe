@@ -6,13 +6,15 @@ angular.module('SocketMe.controllers')
       'Motion',
       'Orientation',
       'Signal',
+      'Wifi',
       'Location',
-      function ($scope, $log, Battery, Motion, Orientation, Signal, Location) {
+      function ($scope, $log, Battery, Motion, Orientation, Signal, Wifi, Location) {
         const services = {
           Battery: Battery,
           Motion: Motion,
           Orientation: Orientation,
           Signal: Signal,
+          Wifi: Wifi,
           Location: Location
         }
         $scope.settingsList = [
@@ -20,6 +22,7 @@ angular.module('SocketMe.controllers')
           { text: 'Motion', checked: Motion.isActive },
           { text: 'Orientation', checked: Orientation.isActive },
           { text: 'Signal', checked: Signal.isActive },
+          { text: 'Wifi', checked: Wifi.isActive },
           { text: 'Location', checked: Location.isActive }
         ]
         $scope.toggleIt = function (item) {
