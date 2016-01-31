@@ -4,16 +4,28 @@ angular.module('SocketMe.controllers')
     'SocketMe',
     '$log',
     function ($scope, SocketMe, $log) {
-      $scope.socket = {
-        connect: false
-      }
-      $scope.toggleIt = function () {
-        if ($scope.socket.connect) {
+      $scope.connections = [
+        {
+          text: 'RobbertHalff.com',
+          url: 'https://robberthalff.com',
+          path: '/ws',
+          connect: false
+        },
+        {
+          text: 'RobbertHalff (dev)',
+          url: 'http://192.168.1.114:3030',
+          path: '/ws',
+          connect: false
+        }
+      ]
+      $scope.toggleIt = function (socket) {
+        if (socket.connect) {
           $log.info('Connecting to socket')
-          SocketMe.connect()
+          const opts = socket.path ? {path: socket.path} : {}
+          SocketMe.connect(socket.url, opts)
         } else {
-          $log.info('Disonnecting from socket')
-          SocketMe.disconnect()
+          $log.info('Disconnecting from socket')
+          SocketMe.disconnect(socket.url)
         }
       }
     }])

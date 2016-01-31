@@ -6,19 +6,20 @@ angular.module('SocketMe.services')
     '$log',
     '$interval',
     function ($rootScope, Cache, $log, $interval) {
-      const socket_url = 'https://robberthalff.com'
-      // var socket_url = 'http://192.168.1.114:3030'
       var stopInterval
       var frequency = 2000
 
       function pollData () {
-        if (api.socket) {
+        const sockets = Object.keys(api.socket);
+        if (sockets.length) {
           const payload = Cache.peek()
           if (Cache.isDirty()) {
             $log.debug('SocketMe: Cache is Dirty, sending/broadcast')
             payload.ts = Date.now()
             $log.debug('SocketMe: payload', JSON.stringify(payload))
-            api.socket.emit('input', payload)
+            sockets.forEach(function(url) {
+              api.socket[url].emit('input', payload)
+            })
             $rootScope.$broadcast('socket:send', payload)
             Cache.flush()
           } else {
@@ -28,20 +29,48 @@ angular.module('SocketMe.services')
       }
 
       const api = {
-        socket: null,
-        connect: function () {
-          if (api.socket) {
-            api.socket.disconnect()
+        socket: {},
+        connect: function (url, opts) {
+          var socket = api.socket;
+          if (socket[url]) {
+            socket[url].disconnect()
           }
-          $log.info('Connecting to %s', socket_url)
-          api.socket = io(socket_url, {path: '/ws'})
-          stopInterval = $interval(pollData, frequency, 0, false)
+          $log.info('Connecting to %s', url)
+          socket[url] = io(url, opts)
+          socket[url].on('connect', function onConnect() {
+            $rootScope.$broadcast('socket:status', {status: 'connect'})
+            $log.info('Connected to %s', url)
+          });
+          socket[url].on('disconnect', function onDisconnect() {
+            $rootScope.$broadcast('socket:status', {status: 'disconnect'})
+            $log.info('Disconnected from %s', url)
+          });
+          socket[url].on('reconnect', function onReconnect() {
+            $rootScope.$broadcast('socket:status', {status: 'reconnect'})
+            $log.info('Reconnected to %s', url)
+          });
+          socket[url].on('error', function onError(err) {
+            $rootScope.$broadcast('socket:status', {status: 'error'})
+            $rootScope.$broadcast('socket:error', err)
+            $log.info('Socket error for %s', url, err)
+          });
+          if (!stopInterval) {
+            stopInterval = $interval(pollData, frequency, 0, false)
+          }
         },
-        disconnect: function () {
-          $interval.cancel(stopInterval)
-          if (api.socket) {
-            $log.info('Disconnected from %s', socket_url)
-            api.socket.disconnect()
+        disconnect: function (url) {
+          const socket = api.socket
+          if (socket[url]) {
+            socket[url].off('connect')
+            socket[url].disconnect()
+            delete socket[url]
+            $log.info('Disconnected from %s', url)
+          }
+          console.log(Object.keys(socket).length)
+          if (!Object.keys(socket).length) {
+            $interval.cancel(stopInterval)
+            $log.info('Stop polling')
+            stopInterval = null
           }
         }
       }

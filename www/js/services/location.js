@@ -1,6 +1,6 @@
 angular.module('SocketMe.services')
   .factory('Location',
-    ['Cache', function (Cache) {
+    ['Cache', '$log', function (Cache, $log) {
       const cache = Cache.create('location')
       var watchID
       const geolocation = navigator.geolocation
@@ -14,7 +14,7 @@ angular.module('SocketMe.services')
       */
 
       function error (err) {
-        console.log(err)
+        $log.error(err)
       }
 
       function success (position) {

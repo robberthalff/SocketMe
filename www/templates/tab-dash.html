@@ -1,10 +1,13 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <ion-toggle ng-model="socket.connect"
-                ng-checked="socket.connect"
-                ng-change="toggleIt()"
+    <ion-list>
+    <ion-toggle
+      ng-repeat="socket in connections"
+      ng-model="socket.connect"
+      ng-checked="socket.connect"
+      ng-change="toggleIt(socket)"
     >
-      Connect
+      {{ socket.text }}
     </ion-toggle>
   </ion-content>
 </ion-view>
