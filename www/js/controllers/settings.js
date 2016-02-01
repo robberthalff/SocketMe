@@ -20,13 +20,48 @@ angular.module('SocketMe.controllers')
           Doppler: Doppler
         }
         $scope.settingsList = [
-          { text: 'Battery', checked: Battery.isActive },
-          { text: 'Motion', checked: Motion.isActive },
-          { text: 'Orientation', checked: Orientation.isActive },
-          { text: 'Signal', checked: Signal.isActive },
-          { text: 'Wifi', checked: Wifi.isActive },
-          { text: 'Location', checked: Location.isActive },
-          { text: 'Doppler', checked: Doppler.isActive }
+          {
+            text: 'Battery',
+            className: 'icon ion-battery-charging',
+            checked: Battery.isActive,
+            service: Battery
+          },
+          {
+            text: 'Motion',
+            className: 'icon ion-android-walk',
+            checked: Motion.isActive,
+            service: Motion
+          },
+          {
+            text: 'Orientation',
+            className: 'icon ion-android-compass',
+            checked: Orientation.isActive,
+            service: Orientation
+          },
+          {
+            text: 'Signal',
+            className: 'icon ion-ios-telephone',
+            checked: Signal.isActive,
+            service: Signal
+          },
+          {
+            text: 'Wifi',
+            className: 'icon ion-android-wifi',
+            checked: Wifi.isActive,
+            service: Wifi
+          },
+          {
+            text: 'Location',
+            className: 'icon ion-android-globe',
+            checked: Location.isActive,
+            service: Location
+          },
+          {
+            text: 'Doppler',
+            className: 'icon ion-android-hand',
+            checked: Doppler.isActive,
+            service: Doppler
+          }
         ]
         $scope.toggleIt = function (item) {
           const service = services[item.text]

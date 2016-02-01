@@ -16,13 +16,19 @@ angular.module('SocketMe.services')
         // SSID: Network name
         // level: RSSI
         function success (result) {
-          cache.add(result)
+          api.status = {
+            BSSID: result.BSSID,
+            SSID: result.SSID,
+            level: result.level
+          }
+          cache.add(api.status)
         }
 
         const api = {
           name: 'Wifi',
           title: 'Wifi',
           isActive: false,
+          status: {},
           start: function () {
             if (!api.isActive) {
               api.isActive = true

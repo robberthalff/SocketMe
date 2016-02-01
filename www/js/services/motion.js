@@ -12,12 +12,13 @@ angular.module('SocketMe.services')
         }
 
         function success (result) {
-          cache.add({
+          api.status = {
             x: result.x,
             y: result.y,
             z: result.z,
             timeStamp: result.timeStamp
-          })
+          }
+          cache.add(api.status)
         }
 
         const options = {frequency: 1000}
@@ -25,6 +26,7 @@ angular.module('SocketMe.services')
           name: 'Motion',
           title: 'Motion',
           isActive: false,
+          status: {},
           start: function () {
             if (!api.isActive) {
               api.isActive = true

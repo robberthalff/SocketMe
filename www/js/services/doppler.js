@@ -7,17 +7,16 @@ angular.module('SocketMe.services')
         const cache = Cache.create('doppler')
         const doppler = window.doppler
 
-        // BSSID: Address of the access point
-        // SSID: Network name
-        // level: RSSI
         function success (result) {
-          cache.add(result)
+          api.status = result
+          cache.add(api.status)
         }
 
         const api = {
           name: 'Doppler',
           title: 'Doppler',
           isActive: false,
+          status: {},
           start: function () {
             if (!api.isActive) {
               api.isActive = true

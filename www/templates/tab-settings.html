@@ -1,4 +1,4 @@
-<ion-view view-title="Settings">
+<ion-view view-title="Services">
   <ion-content>
     <ion-list>
       <ion-toggle ng-repeat="item in settingsList"
@@ -6,7 +6,11 @@
                   ng-checked="item.checked"
                   ng-change="toggleIt(item)"
       >
+        <i ng-class="[item.className]"></i>
         {{ item.text }}
+        <span ng-repeat="(key, value) in item.service.status">
+           <strong>{{key}}:</strong> {{value}}
+        </span>
       </ion-toggle>
     </ion-list>
   </ion-content>

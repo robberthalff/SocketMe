@@ -18,16 +18,18 @@ angular.module('SocketMe.services')
       }
 
       function success (position) {
-        cache.add({
+        api.status = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
-        })
+        }
+        cache.add(api.status)
       }
 
       const api = {
         name: 'Location',
         title: 'Location',
         isActive: false,
+        status: {},
         start: function () {
           if (!api.isActive) {
             api.isActive = true

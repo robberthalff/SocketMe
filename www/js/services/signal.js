@@ -10,7 +10,8 @@ angular.module('SocketMe.services')
         const frequency = 2000
 
         function getStrength (dBm) {
-          cache.add({dBm: dBm})
+          api.status = {dBm: dBm}
+          cache.add(api.status)
         }
 
         function watchSignal (dBm) {
@@ -21,6 +22,7 @@ angular.module('SocketMe.services')
           name: 'Signal',
           title: 'Signal',
           isActive: false,
+          status: {},
           start: function start () {
             if (!api.isActive) {
               api.isActive = true

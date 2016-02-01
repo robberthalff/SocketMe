@@ -3,17 +3,19 @@ angular.module('SocketMe.services')
     ['$rootScope', 'Cache', function ($rootScope, Cache) {
       const cache = Cache.create('battery')
       function onStatus (info) {
-        cache.add({
+        api.status = {
           timeStamp: info.timeStamp,
           level: info.level,
           isPlugged: info.isPlugged
-        })
+        }
+        cache.add(api.status)
       }
 
       const api = {
         name: 'Battery',
         title: 'Battery',
         isActive: false,
+        status: {},
         start: function () {
           if (!api.isActive) {
             api.isActive = true

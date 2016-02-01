@@ -16,12 +16,13 @@ angular.module('SocketMe.services')
 
       function success (result) {
         // updates constantly (depending on frequency value)
-        cache.add({
+        api.status = {
           magneticHeading: result.magneticHeading,
           trueHeading: result.trueHeading,
           accuracy: result.headingAccuracy,
           timeStamp: result.timestamp
-        })
+        }
+        cache.add(api.status)
       }
 
       function error (err) {
@@ -32,6 +33,7 @@ angular.module('SocketMe.services')
         name: 'Orientation',
         title: 'Orientation',
         isActive: false,
+        status: {},
         start: function () {
           if (!api.isActive) {
             api.isActive = true
