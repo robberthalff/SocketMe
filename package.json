@@ -37,7 +37,9 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-battery-status"
   ],
-  "cordovaPlatforms": [],
+  "cordovaPlatforms": [
+    "android"
+  ],
   "standard": {
     "globals": [
       "angular"
