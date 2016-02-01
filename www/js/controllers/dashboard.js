@@ -3,7 +3,14 @@ angular.module('SocketMe.controllers')
     '$scope',
     'SocketMe',
     '$log',
-    function ($scope, SocketMe, $log) {
+    '$timeout',
+    function ($scope, SocketMe, $log, $timeout) {
+
+      function findByUrl(url) {
+        return $scope.connections.find(function(_conn) {
+          return _conn.url === url
+        })
+      }
       $scope.connections = [
         {
           text: 'RobbertHalff.com',
@@ -18,6 +25,12 @@ angular.module('SocketMe.controllers')
           connect: false
         }
       ]
+      $scope.$on('socket:status', function(ev, data) {
+        $timeout(function() {
+          const conn = findByUrl(data.url)
+          conn.status = data.status
+        })
+      })
       $scope.toggleIt = function (socket) {
         if (socket.connect) {
           $log.info('Connecting to socket')

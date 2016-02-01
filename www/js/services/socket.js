@@ -38,19 +38,27 @@ angular.module('SocketMe.services')
           $log.info('Connecting to %s', url)
           socket[url] = io(url, opts)
           socket[url].on('connect', function onConnect () {
-            $rootScope.$broadcast('socket:status', {status: 'connect'})
+            $rootScope.$broadcast('socket:status', {
+              status: 'connected', url: url
+            })
             $log.info('Connected to %s', url)
           })
           socket[url].on('disconnect', function onDisconnect () {
-            $rootScope.$broadcast('socket:status', {status: 'disconnect'})
+            $rootScope.$broadcast('socket:status', {
+              status: 'disconnected', url: url
+            })
             $log.info('Disconnected from %s', url)
           })
           socket[url].on('reconnect', function onReconnect () {
-            $rootScope.$broadcast('socket:status', {status: 'reconnect'})
+            $rootScope.$broadcast('socket:status', {
+              status: 'reconnect', url: url
+            })
             $log.info('Reconnected to %s', url)
           })
           socket[url].on('error', function onError (err) {
-            $rootScope.$broadcast('socket:status', {status: 'error'})
+            $rootScope.$broadcast('socket:status', {
+              status: 'error', url: url
+            })
             $rootScope.$broadcast('socket:error', err)
             $log.info('Socket error for %s', url, err)
           })

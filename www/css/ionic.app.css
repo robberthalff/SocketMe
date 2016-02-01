@@ -9730,3 +9730,11 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.connected {
+  color: green;
+  font-weight: bold; }
+
+.disconnected {
+  color: red;
+  font-weight: bold; }

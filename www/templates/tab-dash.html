@@ -7,7 +7,7 @@
       ng-checked="socket.connect"
       ng-change="toggleIt(socket)"
     >
-      {{ socket.text }}
+      {{ socket.text }} <span ng-if="socket.connect" ng-class="socket.status">{{socket.status}}</span>
     </ion-toggle>
   </ion-content>
 </ion-view>
