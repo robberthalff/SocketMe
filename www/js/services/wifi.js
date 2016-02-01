@@ -16,6 +16,7 @@ angular.module('SocketMe.services')
         // SSID: Network name
         // level: RSSI
         function success (result) {
+          // fix this is an array
           api.status = {
             BSSID: result.BSSID,
             SSID: result.SSID,

@@ -37,6 +37,7 @@ angular.module('SocketMe.services')
           }
           $log.info('Connecting to %s', url)
           socket[url] = io(url, opts)
+
           socket[url].on('connect', function onConnect () {
             $rootScope.$broadcast('socket:status', {
               status: 'connected', url: url
@@ -54,6 +55,24 @@ angular.module('SocketMe.services')
               status: 'reconnect', url: url
             })
             $log.info('Reconnected to %s', url)
+          })
+          socket[url].on('reconnecting', function onReconnecting (/* attemptNo */) {
+            $rootScope.$broadcast('socket:status', {
+              status: 'reconnecting', url: url
+            })
+            $log.info('Reconnecting to %s', url)
+          })
+          socket[url].on('reconnect_error', function onReconnectError (/* err */) {
+            $rootScope.$broadcast('socket:status', {
+              status: 'reconnect_error', url: url
+            })
+            $log.info('Reconnect error to %s', url)
+          })
+          socket[url].on('reconnect_failed', function onReconnectFailed (/* reconnectionAttempts */) {
+            $rootScope.$broadcast('socket:status', {
+              status: 'reconnect_failed', url: url
+            })
+            $log.info('Reconnect error to %s', url)
           })
           socket[url].on('error', function onError (err) {
             $rootScope.$broadcast('socket:status', {

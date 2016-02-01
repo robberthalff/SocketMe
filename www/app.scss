@@ -7,3 +7,13 @@
   color: red;
   font-weight: bold;
 }
+
+.error, .reconnect_error, .reconnect_failed {
+  color: red;
+  font-weight: bold;
+}
+
+.reconnect, .reconnect_attempt, reconnecting {
+  color: yellow;
+  font-weight: bold;
+}
