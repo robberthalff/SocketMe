@@ -11,4 +11,14 @@ Current Services:
  - wifi (scanner)
  - doppler (Not working yet)
  
+Device Deployment (with livereload):
+```
+npm run dev
+```
+
+Local serve (with livereload):
+```
+npm run serve 
+```
+
  
