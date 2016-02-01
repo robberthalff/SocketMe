@@ -7,11 +7,11 @@ angular.module('SocketMe.services')
         const cache = Cache.create('motion')
         var watch
 
-        function error(error) {
+        function error (error) {
           $log.error(error)
         }
 
-        function success(result) {
+        function success (result) {
           cache.add({
             x: result.x,
             y: result.y,

@@ -6,16 +6,16 @@ angular.module('SocketMe.services')
         const cache = Cache.create('wifi')
         const wifi = navigator.wifi
         const options = {frequency: 1000}
-        var watchID;
+        var watchID
 
-        function error(error) {
+        function error (error) {
           $log.error(error)
         }
 
         // BSSID: Address of the access point
         // SSID: Network name
         // level: RSSI
-        function success(result) {
+        function success (result) {
           cache.add(result)
         }
 

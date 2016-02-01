@@ -4,17 +4,16 @@ angular.module('SocketMe.services')
       '$interval',
       '$log',
       function (Cache, $interval, $log) {
-        const dbm = window.SignalStrength ?
-          window.SignalStrength.dbm : null
+        const dbm = window.SignalStrength ? window.SignalStrength.dbm : null
         const cache = Cache.create('signal')
         var stopInterval
-        const frequency = 2000;
+        const frequency = 2000
 
-        function getStrength(dBm) {
+        function getStrength (dBm) {
           cache.add({dBm: dBm})
         }
 
-        function watchSignal(dBm) {
+        function watchSignal (dBm) {
           if (dbm) dbm(getStrength)
         }
 
@@ -22,7 +21,7 @@ angular.module('SocketMe.services')
           name: 'Signal',
           title: 'Signal',
           isActive: false,
-          start: function start() {
+          start: function start () {
             if (!api.isActive) {
               api.isActive = true
               if (!stopInterval) {
@@ -30,7 +29,7 @@ angular.module('SocketMe.services')
               }
             }
           },
-          stop: function stop() {
+          stop: function stop () {
             if (api.isActive) {
               api.isActive = false
               if (stopInterval) {

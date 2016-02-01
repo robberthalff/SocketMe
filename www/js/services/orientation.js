@@ -1,9 +1,7 @@
 angular.module('SocketMe.services')
   .factory('Orientation',
-    [
-      'Cache',
-      '$log',
-      function (Cache, $log) {
+    ['Cache', '$log',
+    function (Cache, $log) {
       const cache = Cache.create('orientation')
       var watchID
       const compass = navigator.compass
@@ -16,7 +14,7 @@ angular.module('SocketMe.services')
       }
       */
 
-      function success(result) {
+      function success (result) {
         // updates constantly (depending on frequency value)
         cache.add({
           magneticHeading: result.magneticHeading,
@@ -26,7 +24,7 @@ angular.module('SocketMe.services')
         })
       }
 
-      function error(err) {
+      function error (err) {
         $log.error(err)
       }
 

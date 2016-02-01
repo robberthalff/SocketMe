@@ -10,7 +10,7 @@ angular.module('SocketMe.services')
         // BSSID: Address of the access point
         // SSID: Network name
         // level: RSSI
-        function success(result) {
+        function success (result) {
           cache.add(result)
         }
 

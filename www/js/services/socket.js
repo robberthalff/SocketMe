@@ -10,14 +10,14 @@ angular.module('SocketMe.services')
       var frequency = 2000
 
       function pollData () {
-        const sockets = Object.keys(api.socket);
+        const sockets = Object.keys(api.socket)
         if (sockets.length) {
           const payload = Cache.peek()
           if (Cache.isDirty()) {
             $log.debug('SocketMe: Cache is Dirty, sending/broadcast')
             payload.ts = Date.now()
             $log.debug('SocketMe: payload', JSON.stringify(payload))
-            sockets.forEach(function(url) {
+            sockets.forEach(function (url) {
               api.socket[url].emit('input', payload)
             })
             $rootScope.$broadcast('socket:send', payload)
@@ -31,29 +31,29 @@ angular.module('SocketMe.services')
       const api = {
         socket: {},
         connect: function (url, opts) {
-          var socket = api.socket;
+          var socket = api.socket
           if (socket[url]) {
             socket[url].disconnect()
           }
           $log.info('Connecting to %s', url)
           socket[url] = io(url, opts)
-          socket[url].on('connect', function onConnect() {
+          socket[url].on('connect', function onConnect () {
             $rootScope.$broadcast('socket:status', {status: 'connect'})
             $log.info('Connected to %s', url)
-          });
-          socket[url].on('disconnect', function onDisconnect() {
+          })
+          socket[url].on('disconnect', function onDisconnect () {
             $rootScope.$broadcast('socket:status', {status: 'disconnect'})
             $log.info('Disconnected from %s', url)
-          });
-          socket[url].on('reconnect', function onReconnect() {
+          })
+          socket[url].on('reconnect', function onReconnect () {
             $rootScope.$broadcast('socket:status', {status: 'reconnect'})
             $log.info('Reconnected to %s', url)
-          });
-          socket[url].on('error', function onError(err) {
+          })
+          socket[url].on('error', function onError (err) {
             $rootScope.$broadcast('socket:status', {status: 'error'})
             $rootScope.$broadcast('socket:error', err)
             $log.info('Socket error for %s', url, err)
-          });
+          })
           if (!stopInterval) {
             stopInterval = $interval(pollData, frequency, 0, false)
           }
