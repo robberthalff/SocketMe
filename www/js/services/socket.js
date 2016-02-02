@@ -5,9 +5,9 @@ angular.module('SocketMe.services')
     'Cache',
     '$log',
     '$interval',
-    function ($rootScope, Cache, $log, $interval) {
+    'Config',
+    function ($rootScope, Cache, $log, $interval, Config) {
       var stopInterval
-      var frequency = 2000
 
       function pollData () {
         const sockets = Object.keys(api.socket)
@@ -82,7 +82,13 @@ angular.module('SocketMe.services')
             $log.info('Socket error for %s', url, err)
           })
           if (!stopInterval) {
-            stopInterval = $interval(pollData, frequency, 0, false)
+            stopInterval = $interval(pollData, Config.socket.frequency, 0, false)
+          }
+        },
+        setInterval: function (frequency) {
+          if (stopInterval) {
+            $interval.cancel(stopInterval)
+            stopInterval = $interval(pollData, Config.socket.frequency, 0, false)
           }
         },
         disconnect: function (url) {

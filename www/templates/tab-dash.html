@@ -9,5 +9,13 @@
     >
       {{ socket.text }} <span ng-if="socket.connect" ng-class="socket.status">{{socket.status}}</span>
     </ion-toggle>
+    <div class="item range range-positive">
+      Send Interval
+      <i class="icon ion-ios-bolt-outline"></i>
+      1 ms
+      <input type="range" ng-model="config.frequency" name="volume" min="1" max="5000" value="2000">
+      5 sec
+      <i class="icon ion-ios-bolt"></i>
+    </div>
   </ion-content>
 </ion-view>

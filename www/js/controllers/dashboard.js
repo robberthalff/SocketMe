@@ -4,8 +4,8 @@ angular.module('SocketMe.controllers')
     'SocketMe',
     '$log',
     '$timeout',
-    function ($scope, SocketMe, $log, $timeout) {
-
+    'Config',
+    function ($scope, SocketMe, $log, $timeout, Config) {
       function findByUrl(url) {
         return $scope.connections.find(function(_conn) {
           return _conn.url === url
@@ -25,6 +25,15 @@ angular.module('SocketMe.controllers')
           connect: false
         }
       ]
+
+      $scope.config = Config.socket
+
+      $scope.$watch('config.frequency', function(val) {
+        $timeout(function () {
+          SocketMe.setInterval(val)
+        })
+      })
+
       $scope.$on('socket:status', function(ev, data) {
         $timeout(function() {
           const conn = findByUrl(data.url)
