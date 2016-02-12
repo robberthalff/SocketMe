@@ -3,15 +3,17 @@ angular.module('SocketMe.controllers')
     ['$scope',
       '$log',
       'Battery',
+      'Compass',
       'Motion',
       'Orientation',
       'Signal',
       'Wifi',
       'Location',
       'Doppler',
-      function ($scope, $log, Battery, Motion, Orientation, Signal, Wifi, Location, Doppler) {
+      function ($scope, $log, Battery, Compass, Motion, Orientation, Signal, Wifi, Location, Doppler) {
         const services = {
           Battery: Battery,
+          Compass: Compass,
           Motion: Motion,
           Orientation: Orientation,
           Signal: Signal,
@@ -37,6 +39,12 @@ angular.module('SocketMe.controllers')
             className: 'icon ion-android-compass',
             checked: Orientation.isActive,
             service: Orientation
+          },
+          {
+            text: 'Compass',
+            className: 'icon ion-android-compass',
+            checked: Compass.isActive,
+            service: Compass
           },
           {
             text: 'Signal',

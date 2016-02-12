@@ -9746,3 +9746,6 @@ a.button {
 .reconnect, .reconnect_attempt, reconnecting {
   color: yellow;
   font-weight: bold; }
+
+.item .range input {
+  @linear-gradient to right, #191B1A 0%, #448C64 100%; }

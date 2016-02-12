@@ -3,30 +3,15 @@ angular.module('SocketMe.services')
     ['Cache', '$log',
     function (Cache, $log) {
       const cache = Cache.create('orientation')
-      var watchID
-      const compass = navigator.compass
 
-      // if frequency is set, filter is ignored
-      /*
-      const options = {
-        filter: 5 // change in degrees
-        // frequency: 1000
-      }
-      */
-
-      function success (result) {
-        // updates constantly (depending on frequency value)
+      function deviceOrientationListener(event) {
         api.status = {
-          magneticHeading: result.magneticHeading,
-          trueHeading: result.trueHeading,
-          accuracy: result.headingAccuracy,
-          timeStamp: result.timestamp
+          absolute: event.absolute,
+          alpha: event.alpha,
+          beta: event.beta,
+          gamma: event.gamma
         }
         cache.add(api.status)
-      }
-
-      function error (err) {
-        $log.error(err)
       }
 
       const api = {
@@ -37,15 +22,19 @@ angular.module('SocketMe.services')
         start: function () {
           if (!api.isActive) {
             api.isActive = true
-            watchID = compass.watchHeading(success, error /*, options*/)
+            window.addEventListener(
+              'deviceorientation',
+              deviceOrientationListener
+            );
           }
         },
         stop: function () {
           if (api.isActive) {
             api.isActive = false
-            if (watchID) {
-              compass.clearWatch(watchID)
-            }
+            window.removeEventListener(
+              'deviceorientation',
+              deviceOrientationListener
+            );
             cache.clear()
           }
         }
