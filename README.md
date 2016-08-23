@@ -2,6 +2,10 @@
 
 Simple android app to send sensor information to a remote websocket server.
 
+![SocketMe](
+https://cdn.rawgit.com/robberthalff/SocketMe/master/docs/socketme.svg
+)
+
 Current Services:
  - battery
  - location
