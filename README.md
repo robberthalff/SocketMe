@@ -11,6 +11,11 @@ Current Services:
  - wifi (scanner)
  - doppler (Not working yet)
  
+Ensure cordova is installed:
+```
+npm i cordova -g
+```
+ 
 Device Deployment (with livereload):
 ```
 npm run dev
