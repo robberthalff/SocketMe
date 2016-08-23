@@ -25,6 +25,8 @@ Device Deployment (with livereload):
 npm run dev
 ```
 
+To debug visit [chrome://inspect/#devices](chrome://inspect/#devices) to inspect the app.
+
 Local serve (with livereload):
 ```
 npm run serve 
