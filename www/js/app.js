@@ -21,7 +21,7 @@ angular.module('SocketMe', [
   })
 
   .config(function ($stateProvider, $urlRouterProvider, $logProvider) {
-    $logProvider.debugEnabled(false);
+    $logProvider.debugEnabled(false)
     $stateProvider
       .state('tab', {
         url: '/tab',

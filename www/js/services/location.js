@@ -33,7 +33,7 @@ angular.module('SocketMe.services')
         start: function () {
           if (!api.isActive) {
             api.isActive = true
-            watchID = geolocation.watchPosition(success, error /*, options*/)
+            watchID = geolocation.watchPosition(success, error /*, options */)
           }
         },
         stop: function () {

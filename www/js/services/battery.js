@@ -3,9 +3,9 @@ angular.module('SocketMe.services')
     ['$rootScope', 'Cache', function ($rootScope, Cache) {
       const cache = Cache.create('battery')
       var battery
-      var _isPlugged = false;
+      var _isPlugged = false
       var _dischargingTime = null
-      var _charging = null;
+      var _charging = null
       if (navigator.getBattery) {
         battery = navigator.getBattery()
       }
@@ -23,7 +23,7 @@ angular.module('SocketMe.services')
         cache.add(api.status)
       }
 
-      function removeListeners(_battery) {
+      function removeListeners (_battery) {
         _battery.removeEventListener('chargingchange', onStatus)
         _battery.removeEventListener('levelchange', onStatus)
         _battery.removeEventListener('dischargingtimechange', onStatus)
@@ -38,9 +38,9 @@ angular.module('SocketMe.services')
           if (!api.isActive) {
             api.isActive = true
             if (battery) {
-              battery.then(function() {
+              battery.then(function () {
                 onStatus(battery)
-                removeListeners(battery);
+                removeListeners(battery)
                 battery.addEventListener('chargingchange', onStatus)
                 battery.addEventListener('levelchange', onStatus)
                 battery.addEventListener('dischargingtimechange', onStatus)
@@ -56,7 +56,7 @@ angular.module('SocketMe.services')
             cache.clear()
             window.removeEventListener('batterystatus', onStatus)
             if (battery) {
-              removeListeners(battery);
+              removeListeners(battery)
             }
           }
         }

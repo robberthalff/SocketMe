@@ -35,7 +35,6 @@ function addPlatformBodyTag (indexPath, platform) {
       var newClassAttr = classAttr.substring(0, classAttr.length - 1)
       newClassAttr += ' ' + platformClass + ' ' + cordovaClass + endingQuote
       newBodyTag = bodyTag.replace(classAttr, newClassAttr)
-
     } else {
       // add class attribute to the body tag
       newBodyTag = bodyTag.replace('>', ' class="' + platformClass + ' ' + cordovaClass + '">')
@@ -84,10 +83,8 @@ if (rootdir) {
       if (fs.existsSync(indexPath)) {
         addPlatformBodyTag(indexPath, platform)
       }
-
     } catch(e) {
       process.stdout.write(e)
     }
   }
-
 }
