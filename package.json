@@ -19,6 +19,7 @@
   "devDependencies": {
     "bower": "^1.7.9",
     "gulp-util": "^3.0.7",
+    "ionic": "^2.0.0",
     "shelljs": "^0.7.3",
     "snazzy": "^4.0.1",
     "standard": "^8.0.0-beta.5"
